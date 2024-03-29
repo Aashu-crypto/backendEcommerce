@@ -113,11 +113,13 @@ const getProductController = async (req, res) => {
 const addTocart = async (req, res) => {
   try {
     const { userId, productId, quantity } = req.body;
-    const user =await  User.findById(userId);
+    console.log(userId + productId);
+    const user = await User.findById(userId);
     const productDetail = await product.findById(productId);
     const name = productDetail.name;
     const price = productDetail.price;
-    console.log("product",name+price);
+    const imageUrl = productDetail.imageUrl;
+    console.log("product", name + price + imageUrl);
 
     let cartsaved;
     if (!user) {
@@ -138,7 +140,7 @@ const addTocart = async (req, res) => {
         cartsaved = await cartItem.save();
       } else {
         // Add new item
-        cartItem.item.push({ productId, quantity, name, price });
+        cartItem.item.push({ productId, quantity, name, price, imageUrl });
         cartsaved = await cartItem.save();
       }
       return res.status(200).json(cartsaved);
@@ -146,7 +148,7 @@ const addTocart = async (req, res) => {
       // New cart
       const newCart = await cart.create({
         userId,
-        item: [{ productId, quantity, name, price }],
+        item: [{ productId, quantity, name, price, imageUrl }],
       });
       return res.status(201).json(newCart);
     }

@@ -4,16 +4,19 @@ const { JWT_SECRET } = require("../config");
 //This controller will be used for User to create there profile and login
 const userLogin = async (req, res) => {
   const { body } = req;
+  console.log("body", body);
   const user = await User.findOne({
     username: body.username,
     password: body.password,
   });
+  console.log("user login", user);
 
   if (!user) {
     res.json("Incorrect Username/password");
+  } else {
+    // Success case
+    res.json({ message: "user logged In", userId: user._id });
   }
-
-  res.json("user Logged In");
 };
 const userInfo = async (req, res) => {
   try {
@@ -27,14 +30,17 @@ const userInfo = async (req, res) => {
 const userCreate = async (req, res) => {
   try {
     const { body } = req;
+    console.log(body);
     const existingUser = await User.findOne({
       username: body.username,
     });
+    console.log(existingUser);
     if (existingUser) {
       return res.status(411).json({
         message: "Email already taken/Incorrect inputs",
       });
     }
+
     const user = await User.create({
       username: body.username,
       name: body.name,
