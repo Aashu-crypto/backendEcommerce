@@ -17,21 +17,19 @@ const productSchema = new Schema({
   },
   description: {
     type: String,
-    maxlength: 250, // Set a character limit
+   
   },
   starrating: {
     type: Number,
   },
-  size: {
-    type: String,
-  },
+
   stock: {
     type: Number,
     default: 0, // Set initial stock to 0
   },
   categories: {
     type: [String], // Array for multiple categories
-    // enum: ["Electronics", "Apparel", "Homeware", "Other"], // Limit to specific categories
+    enum: ["Phone", "Computers", "Smart Watch", "Headphone", "Gaming"], // Limit to specific categories
   },
   imageUrl: {
     type: String,

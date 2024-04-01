@@ -23,33 +23,41 @@ const productsController = async (req, res) => {
       brandName,
       description,
       starrating,
-      size,
       stock,
       categories,
       imageUrl,
     } = req.body;
-
-    // Basic validation (consider a robust validation library for production)
+    console.log(req.body);
+    console.log(name);
+    // Basic validation with improved checks
     if (!name || !price || !categories || !imageUrl) {
       return res.status(400).json({
         error: "Please provide name, price, categories, and imageUrl",
       });
     }
 
-    if (!validator.isURL(imageUrl)) {
-      return res
-        .status(400)
-        .json({ error: "Please provide a valid image URL" });
+    if (typeof price !== "number" || price < 0) {
+      return res.status(400).json({
+        error: "Price must be a positive number",
+      });
     }
 
-    // Create a new product object
+    // Import validator library for URL check
+    const validator = require("validator");
+
+    if (!validator.isURL(imageUrl)) {
+      return res.status(400).json({
+        error: "Please provide a valid image URL",
+      });
+    }
+
+    // Create a new product object (assuming 'product' is your model)
     const newProduct = new product({
       name,
       price,
       brandName,
       description,
       starrating,
-      size,
       stock,
       categories,
       imageUrl,
