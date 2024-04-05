@@ -1,4 +1,4 @@
-const { product, User, cart } = require("../db"); // Import your product model
+const { product, User, cart, address } = require("../db"); // Import your product model
 const validator = require("validator");
 const multer = require("multer");
 
@@ -175,8 +175,11 @@ const getCartItems = async (req, res) => {
 
     const cartItems = await cart.find({ userId: id });
     console.log(cartItems);
-
-    return res.status(200).json(cartItems);
+    if (cartItems.length == 0) {
+      return res.status(200).json({ message: "Cart is Empty" });
+    } else {
+      return res.status(200).json(cartItems);
+    }
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error: "Some Error " });
@@ -184,7 +187,8 @@ const getCartItems = async (req, res) => {
 };
 const deleteCartItem = async (req, res) => {
   const { userId, productId } = req.body;
-  console.log(userId + productId);
+  console.log(req.body);
+
   try {
     const Cart = await cart.findOneAndUpdate(
       { userId }, // Find the correct cart
@@ -198,6 +202,8 @@ const deleteCartItem = async (req, res) => {
     return res.status(500).json({ error: error });
   }
 };
+
+
 module.exports = {
   productsDetailsController,
   productsController,
@@ -206,4 +212,5 @@ module.exports = {
   addTocart,
   getCartItems,
   deleteCartItem,
+
 };

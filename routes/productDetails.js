@@ -6,7 +6,9 @@ const {
   getProductController,
   addTocart,
   getCartItems,
-  deleteCartItem
+  deleteCartItem,
+  addAddress,
+  getAddress,
 } = require("../controllers/productsDetailsController");
 const router = express.Router();
 
@@ -15,7 +17,8 @@ router.post("/addProduct", productsController);
 router.put("/editProduct/:id", productsEdit);
 router.get("/getProduct/:id", getProductController);
 router.post("/addCart", addTocart);
-router.get("/cartItems/:id",getCartItems)
-router.put('/deleteCartItem',deleteCartItem)
+router.get("/cartItems/:id", getCartItems);
+router.put("/deleteCartItem", deleteCartItem);
+
 
 module.exports = router;

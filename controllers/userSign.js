@@ -1,4 +1,4 @@
-const { User } = require("../db");
+const { User, address } = require("../db");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET } = require("../config");
 //This controller will be used for User to create there profile and login
@@ -15,7 +15,12 @@ const userLogin = async (req, res) => {
     res.json("Incorrect Username/password");
   } else {
     // Success case
-    res.json({ message: "user logged In", userId: user._id });
+    res.json({
+      message: "user logged In",
+      userId: user._id,
+      name: user.name,
+      mail: user.username,
+    });
   }
 };
 const userInfo = async (req, res) => {
@@ -66,9 +71,35 @@ const userCreate = async (req, res) => {
     });
   }
 };
+const addAddress = async (req, res) => {
+  try {
+    const newAddress = new address(req.body);
+    const savedAddress = await newAddress.save();
+    res.status(201).json(savedAddress);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+const getAddress = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+    const AddressItem = await address.find({ userId: id });
+    console.log(AddressItem);
+
+    return res.status(200).json(AddressItem);
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ message: "error occured .Please try again." });
+  }
+};
 
 module.exports = {
   userLogin,
   userCreate,
   userInfo,
+  getAddress,
+  addAddress,
 };
