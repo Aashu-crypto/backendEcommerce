@@ -1,6 +1,5 @@
 const { product, User, cart, address } = require("../db"); // Import your product model
-const validator = require("validator");
-const multer = require("multer");
+
 
 // Controller for fetching all products
 const productsDetailsController = async (req, res) => {

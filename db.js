@@ -3,6 +3,7 @@ const User = require("./models/usersModel");
 const product = require("./models/products");
 const cart = require("./models/cartModel");
 const address = require("./models/addressModel");
+const Order = require("./models/orderedModel");
 require("dotenv").config(); // Load environment variables from .env file
 const mongodbURI = process.env.MONGODB_URI;
 mongoose.connect(mongodbURI);
@@ -12,4 +13,5 @@ module.exports = {
   product,
   cart,
   address,
+  Order
 };
