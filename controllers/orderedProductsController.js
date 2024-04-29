@@ -34,7 +34,12 @@ const getOrderedItems = async (req, res) => {
       return res.status(500).send("No user Exist");
     }
     console.log(userId);
-    const orderedItems =await Order.find({ userId: userId }).lean();
+    const orderedItems = await Order.find({ userId: userId })
+    .populate({ 
+      path: 'item.productId',
+      select: 'name imageUrl price' 
+   })
+      .lean();
     console.log(orderedItems);
     return res.json({ orderedItems });
   } catch (error) {

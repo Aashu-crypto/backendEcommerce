@@ -7,5 +7,6 @@ router.get("/userInfo", userController.userInfo);
 router.post("/createUser", userController.userCreate);
 router.post("/addUserAddress", userController.addAddress);
 router.get("/getUserAddress/:id", userController.getAddress);
+router.get("/userAllDetails/:id", userController.getAllDetail)
 
 module.exports = router;

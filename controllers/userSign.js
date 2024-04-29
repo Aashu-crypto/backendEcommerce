@@ -95,11 +95,19 @@ const getAddress = async (req, res) => {
       .json({ message: "error occured .Please try again." });
   }
 };
-
+const getAllDetail = async (req, res) => {
+  try {
+    
+  } catch (error) {
+    
+  }
+  res.send("Working");
+};
 module.exports = {
   userLogin,
   userCreate,
   userInfo,
   getAddress,
   addAddress,
+  getAllDetail,
 };

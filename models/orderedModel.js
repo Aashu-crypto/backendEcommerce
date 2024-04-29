@@ -10,15 +10,19 @@ const orderedItemsSchema = new Schema({
         ref: "product",
         required: true,
       },
-  
+      name: String,
+      price: Number,
+      imageUrl: String,
+
       quantity: { type: Number },
+      status: {
+        type: String,
+        enum: ["pending", "paid", "shipped", "delivered", "cancelled"],
+        default: "pending",
+      },
     },
   ],
-  status: {
-    type: String,
-    enum: ["pending", "paid", "shipped", "delivered", "cancelled"],
-    default: "pending",
-  },
+
   createdDate: { type: Date, default: Date.now },
 });
 
