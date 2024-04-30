@@ -1,6 +1,5 @@
 const { product, User, cart, address } = require("../db"); // Import your product model
 
-
 // Controller for fetching all products
 const productsDetailsController = async (req, res) => {
   try {
@@ -201,8 +200,34 @@ const deleteCartItem = async (req, res) => {
     return res.status(500).json({ error: error });
   }
 };
-
-
+const searchProduct = async (req, res) => {
+  console.log("working");
+  const text = req.query.text;
+  const productDetail = await product.find({
+    name: {
+      $regex: new RegExp(text, "i"),
+    },
+  });
+  console.log(productDetail);
+  res.json({
+    product: productDetail.map((item) => ({
+      name: item.name,
+      id: item._id,
+    })),
+  });
+};
+const filterProduct = async (req, res) => {
+  const text = req.query.text;
+  const productDetail = await product.find({
+    name: {
+      $regex: new RegExp(text, "i"),
+    },
+  });
+  console.log(productDetail);
+  res.json({
+    productDetail,
+  });
+};
 module.exports = {
   productsDetailsController,
   productsController,
@@ -211,5 +236,6 @@ module.exports = {
   addTocart,
   getCartItems,
   deleteCartItem,
-
+  searchProduct,
+  filterProduct,
 };
