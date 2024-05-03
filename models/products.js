@@ -17,7 +17,6 @@ const productSchema = new Schema({
   },
   description: {
     type: String,
-   
   },
   starrating: {
     type: Number,
@@ -34,6 +33,14 @@ const productSchema = new Schema({
   imageUrl: {
     type: String,
   },
+  gender: {
+    type: String,
+    enum: ["male", "female", "both"],
+  },
+  access:{
+    type:String,
+    enum:['new','early']
+  }
 });
 
 const product = mongoose.model("product", productSchema);

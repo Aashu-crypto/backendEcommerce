@@ -24,6 +24,8 @@ const productsController = async (req, res) => {
       stock,
       categories,
       imageUrl,
+      gender,
+      access,
     } = req.body;
     console.log(req.body);
     console.log(name);
@@ -59,6 +61,8 @@ const productsController = async (req, res) => {
       stock,
       categories,
       imageUrl,
+      access,
+      gender,
     });
 
     // Save the product to the database
@@ -228,6 +232,17 @@ const filterProduct = async (req, res) => {
     productDetail,
   });
 };
+
+const getEarlyDeals = async (req, res) => {
+  try {
+    const productsDetails = await product.find({ access: "early" });
+    console.log(productsDetails);
+    res.send(productsDetails);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("error")
+  }
+};
 module.exports = {
   productsDetailsController,
   productsController,
@@ -238,4 +253,5 @@ module.exports = {
   deleteCartItem,
   searchProduct,
   filterProduct,
+  getEarlyDeals,
 };

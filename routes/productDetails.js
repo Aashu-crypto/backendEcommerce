@@ -7,9 +7,14 @@ const {
   addTocart,
   getCartItems,
   deleteCartItem,
-  searchProduct,filterProduct
+  searchProduct,
+  filterProduct,
+  getEarlyDeals,
 } = require("../controllers/productsDetailsController");
-const { orderedItems,getOrderedItems } = require("../controllers/orderedProductsController");
+const {
+  orderedItems,
+  getOrderedItems,
+} = require("../controllers/orderedProductsController");
 const router = express.Router();
 
 router.get("/details", productsDetailsController);
@@ -21,6 +26,7 @@ router.get("/cartItems/:id", getCartItems);
 router.put("/deleteCartItem", deleteCartItem);
 router.post("/orderedItems", orderedItems);
 router.get("/getOrderedItems/:id", getOrderedItems);
-router.get("/searchProduct",searchProduct)
-router.get("/filteredProduct",filterProduct)
+router.get("/searchProduct", searchProduct);
+router.get("/filteredProduct", filterProduct);
+router.get("/earlyDeals", getEarlyDeals);
 module.exports = router;
